@@ -1,17 +1,40 @@
 <robot name="UnitreeDog">
+  <!-- ===========================
+       BASE / TRUNK (box approx)
+       =========================== -->
   <link name="base_link">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
         <mesh filename="package://uniteedog_description/meshes/trunk.dae" scale="1.0 1.0 1.0"/>
-        <!-- <box size="0.5 0.3 0.2"/> length x width x height in meters -->
       </geometry>
-       <material name="base_color">
+      <material name="base_color">
         <color rgba="0.59 0.29 0.0 1.0"/>
       </material>
     </visual>
+
+    <!-- Collision: simplified box for performance -->
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.588 0.22 0.12"/> <!-- length x width x height (m) -->
+      </geometry>
+    </collision>
+
+    <!-- Inertial: computed for the box geometry -->
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="5.5"/>
+      <inertia
+        ixx="0.02878333" ixy="0.0" ixz="0.0"
+        iyy="0.16506600" iyz="0.0"
+        izz="0.18064933"/>
+    </inertial>
   </link>
-<!-- back hip right -->
+
+  <!-- ===========================
+       BACK HIP RIGHT (small block)
+       =========================== -->
   <link name="back_hip_right">
     <visual>
       <origin xyz="0 0 0" rpy="0 3.1416 0"/>
@@ -22,6 +45,22 @@
         <color rgba="0.59 0.29 0.0 1.0"/>
       </material>
     </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.06 0.04 0.04"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.125"/>
+      <inertia
+        ixx="0.00003333" ixy="0.0" ixz="0.0"
+        iyy="0.00005417" iyz="0.0"
+        izz="0.00005417"/>
+    </inertial>
   </link>
 
   <joint name="base_to_back_hip_right" type="revolute">
@@ -29,10 +68,12 @@
     <parent link="base_link"/>
     <child link="back_hip_right"/>
     <origin xyz="-0.19 -0.05 0" rpy="0 0 0"/>
-     <limit lower="-0.6" upper="0.6" effort="10" velocity="0.5"/>
+    <limit lower="-0.6" upper="0.6" effort="10" velocity="0.5"/>
   </joint>
 
-  <!-- back hip left -->
+  <!-- ===========================
+       BACK HIP LEFT
+       =========================== -->
   <link name="back_hip_left">
     <visual>
       <origin xyz="0 0 0" rpy="0 3.1416 0"/>
@@ -43,6 +84,22 @@
         <color rgba="0.59 0.29 0.0 1.0"/>
       </material>
     </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.06 0.04 0.04"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.125"/>
+      <inertia
+        ixx="0.00003333" ixy="0.0" ixz="0.0"
+        iyy="0.00005417" iyz="0.0"
+        izz="0.00005417"/>
+    </inertial>
   </link>
 
   <joint name="base_to_back_hip_left" type="revolute">
@@ -50,10 +107,12 @@
     <parent link="base_link"/>
     <child link="back_hip_left"/>
     <origin xyz="-0.19 0.05 0" rpy="0 0 0"/>
-     <limit lower="-0.6" upper="0.6" effort="10" velocity="0.5"/>
+    <limit lower="-0.6" upper="0.6" effort="10" velocity="0.5"/>
   </joint>
 
-  <!-- front hip right -->
+  <!-- ===========================
+       FRONT HIP RIGHT
+       =========================== -->
   <link name="front_hip_right">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -64,6 +123,22 @@
         <color rgba="0.59 0.29 0.0 1.0"/>
       </material>
     </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.06 0.04 0.04"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.125"/>
+      <inertia
+        ixx="0.00003333" ixy="0.0" ixz="0.0"
+        iyy="0.00005417" iyz="0.0"
+        izz="0.00005417"/>
+    </inertial>
   </link>
 
   <joint name="base_to_front_hip_right" type="revolute">
@@ -71,11 +146,12 @@
     <parent link="base_link"/>
     <child link="front_hip_right"/>
     <origin xyz="0.19 -0.05 0" rpy="0 0 0"/>
-     <limit lower="-0.6" upper="0.6" effort="10" velocity="0.5"/>
+    <limit lower="-0.6" upper="0.6" effort="10" velocity="0.5"/>
   </joint>
 
-
-  <!-- front hip left -->
+  <!-- ===========================
+       FRONT HIP LEFT
+       =========================== -->
   <link name="front_hip_left">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -86,6 +162,22 @@
         <color rgba="0.59 0.29 0.0 1.0"/>
       </material>
     </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.06 0.04 0.04"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.125"/>
+      <inertia
+        ixx="0.00003333" ixy="0.0" ixz="0.0"
+        iyy="0.00005417" iyz="0.0"
+        izz="0.00005417"/>
+    </inertial>
   </link>
 
   <joint name="base_to_front_hip_left" type="revolute">
@@ -93,13 +185,12 @@
     <parent link="base_link"/>
     <child link="front_hip_left"/>
     <origin xyz="0.19 0.05 0" rpy="0 0 0"/>
-     <limit lower="-0.6" upper="0.6" effort="10" velocity="0.5"/>
+    <limit lower="-0.6" upper="0.6" effort="10" velocity="0.5"/>
   </joint>
 
-
-
-<!-- depth Camera -->
-
+  <!-- ===========================
+       CAMERA (small mass)
+       =========================== -->
   <link name="camera">
     <visual>
       <origin xyz="0 -0.01 0.01" rpy="0.7854 0 0"/>
@@ -110,6 +201,23 @@
         <color rgba="0.9 0.29 0.0 1"/>
       </material>
     </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.08 0.03 0.03"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.15"/>
+      <!-- approx sphere inertia (r~0.03) -->
+      <inertia
+        ixx="0.000054" ixy="0.0" ixz="0.0"
+        iyy="0.000054" iyz="0.0"
+        izz="0.000054"/>
+    </inertial>
   </link>
 
   <joint name="base_to_camera" type="fixed">
@@ -118,8 +226,9 @@
     <origin xyz="0.3 0 0" rpy="0 0 0"/>
   </joint>
 
-<!-- ultraSound -->
-
+  <!-- ===========================
+       ULTRASOUND SENSOR
+       =========================== -->
   <link name="ultraSound">
     <visual>
       <origin xyz="0 0 0.02" rpy="-0.7854 0 0"/>
@@ -130,6 +239,22 @@
         <color rgba="0.9 0.29 0.0 1"/>
       </material>
     </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.04 0.02 0.02"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia
+        ixx="0.00001" ixy="0.0" ixz="0.0"
+        iyy="0.00001" iyz="0.0"
+        izz="0.00001"/>
+    </inertial>
   </link>
 
   <joint name="base_to_ultraSound" type="fixed">
@@ -138,16 +263,12 @@
     <origin xyz="0 0 0" rpy="0 0 0"/>
   </joint>
 
-  <!--  _______________________________  -->
-
-
-<!--  front leg  -->
-
-    <!-- right front leg -->
-
+  <!-- ===========================
+       RIGHT FRONT THIGH (cylinder)
+       =========================== -->
   <link name="right_front_leg">
     <visual>
-      <origin xyz="0 0 0" rpy=" 0 0.7854 0"/>
+      <origin xyz="0 0 0" rpy="0 0.7854 0"/>
       <geometry>
         <mesh filename="package://uniteedog_description/meshes/thigh_mirror.dae" scale="1.0 1.0 1.0"/>
       </geometry>
@@ -155,6 +276,24 @@
         <color rgba="0.59 0.29 0.0 1.0"/>
       </material>
     </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <!-- cylinder: length ~0.12 m, radius 0.03 m (aligned along local X) -->
+        <cylinder length="0.12" radius="0.03"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.9"/>
+      <!-- cylinder inertia: I_perp ~0.0012825, I_long ~0.000405 -->
+      <inertia
+        ixx="0.0012825" ixy="0.0" ixz="0.0"
+        iyy="0.0012825" iyz="0.0"
+        izz="0.000405"/>
+    </inertial>
   </link>
 
   <joint name="base_to_right_front_leg" type="revolute">
@@ -165,11 +304,10 @@
     <origin xyz="0 -0.08 0 " rpy="0 0 0"/>
   </joint>
 
-<!-- calf front right -->
-
+  <!-- FRONT CALF RIGHT -->
   <link name="front_calf_right">
     <visual>
-      <origin xyz="0 0 0" rpy=" 0 0 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
         <mesh filename="package://uniteedog_description/meshes/calf.dae" scale="1.0 1.0 1.0"/>
       </geometry>
@@ -177,6 +315,24 @@
         <color rgba="0.59 0.29 0.0 1.0"/>
       </material>
     </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <!-- cylinder: length 0.14 m, radius 0.025 m -->
+        <cylinder length="0.14" radius="0.025"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.6"/>
+      <!-- cylinder inertia: I_perp ~0.00107375, I_long ~0.0001875 -->
+      <inertia
+        ixx="0.00107375" ixy="0.0" ixz="0.0"
+        iyy="0.00107375" iyz="0.0"
+        izz="0.0001875"/>
+    </inertial>
   </link>
 
   <joint name="right_front_leg_to_calf" type="revolute">
@@ -184,17 +340,16 @@
     <limit lower="-1.2" upper="0" effort="10" velocity="0.5"/>
     <parent link="right_front_leg"/>
     <child link="front_calf_right"/>
-    <origin xyz=" -0.14 0 -0.15 " rpy="0 -0.7854 0"/>
-  </joint>  
+    <origin xyz="-0.14 0 -0.15" rpy="0 -0.7854 0"/>
+  </joint>
 
-
-
-
-<!-- front left leg -->
-
+  <!-- ===========================
+       LEFT FRONT THIGH + CALF
+       (same masses/inertias as right)
+       =========================== -->
   <link name="left_front_leg">
     <visual>
-      <origin xyz="0 0 0" rpy=" 0 0.7854 0"/>
+      <origin xyz="0 0 0" rpy="0 0.7854 0"/>
       <geometry>
         <mesh filename="package://uniteedog_description/meshes/thigh.dae" scale="1.0 1.0 1.0"/>
       </geometry>
@@ -202,21 +357,35 @@
         <color rgba="0.59 0.29 0.0 1.0"/>
       </material>
     </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.12" radius="0.03"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.9"/>
+      <inertia
+        ixx="0.0012825" ixy="0.0" ixz="0.0"
+        iyy="0.0012825" iyz="0.0"
+        izz="0.000405"/>
+    </inertial>
   </link>
- <joint name="base_to_left_front_leg" type="revolute">
+
+  <joint name="base_to_left_front_leg" type="revolute">
     <axis xyz="0 1 0"/>
     <limit lower="-0.52" upper="1.57" effort="10" velocity="0.5"/>
     <parent link="front_hip_left"/>
     <child link="left_front_leg"/>
-    <origin xyz="0 0.08 0 " rpy="0 0 0"/>
+    <origin xyz="0 0.08 0" rpy="0 0 0"/>
   </joint>
 
-<!-- calf front left -->
-
   <link name="front_calf_left">
-
     <visual>
-      <origin xyz="0 0 0" rpy=" 0 0 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
         <mesh filename="package://uniteedog_description/meshes/calf.dae" scale="1.0 1.0 1.0"/>
       </geometry>
@@ -224,6 +393,22 @@
         <color rgba="0.59 0.29 0.0 1.0"/>
       </material>
     </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.14" radius="0.025"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.6"/>
+      <inertia
+        ixx="0.00107375" ixy="0.0" ixz="0.0"
+        iyy="0.00107375" iyz="0.0"
+        izz="0.0001875"/>
+    </inertial>
   </link>
 
   <joint name="left_front_leg_to_calf" type="revolute">
@@ -231,17 +416,15 @@
     <limit lower="-1.2" upper="0" effort="10" velocity="0.5"/>
     <parent link="left_front_leg"/>
     <child link="front_calf_left"/>
-    <origin xyz=" -0.14 0 -0.15 " rpy="0 -0.7854 0"/>
-  </joint>  
+    <origin xyz="-0.14 0 -0.15" rpy="0 -0.7854 0"/>
+  </joint>
 
-
-<!--  back leg  -->
-
-    <!-- right back leg -->
-
+  <!-- ===========================
+       RIGHT BACK THIGH + CALF
+       =========================== -->
   <link name="right_back_leg">
     <visual>
-      <origin xyz="0 0 0" rpy=" 0 0.7854 0"/>
+      <origin xyz="0 0 0" rpy="0 0.7854 0"/>
       <geometry>
         <mesh filename="package://uniteedog_description/meshes/thigh_mirror.dae" scale="1.0 1.0 1.0"/>
       </geometry>
@@ -249,24 +432,35 @@
         <color rgba="0.59 0.29 0.0 1.0"/>
       </material>
     </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.12" radius="0.03"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.9"/>
+      <inertia
+        ixx="0.0012825" ixy="0.0" ixz="0.0"
+        iyy="0.0012825" iyz="0.0"
+        izz="0.000405"/>
+    </inertial>
   </link>
 
   <joint name="hip_to_right_back_leg" type="revolute">
     <axis xyz="0 1 0"/>
-    <limit lower="-0.52" upper="1.57" effort="10" velocity="0.5"/>  
+    <limit lower="-0.52" upper="1.57" effort="10" velocity="0.5"/>
     <parent link="back_hip_right"/>
     <child link="right_back_leg"/>
-    <origin xyz="0 -0.08 0 " rpy="0 0 0"/>
-       <!-- <origin xyz="0 -0.06 0 " rpy="0 0 0"/> -->
+    <origin xyz="0 -0.08 0" rpy="0 0 0"/>
   </joint>
 
-
-    <!-- calf back right -->
-
   <link name="back_calf_right">
-
     <visual>
-      <origin xyz="0 0 0" rpy=" 0 0 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
         <mesh filename="package://uniteedog_description/meshes/calf.dae" scale="1.0 1.0 1.0"/>
       </geometry>
@@ -274,6 +468,22 @@
         <color rgba="0.59 0.29 0.0 1.0"/>
       </material>
     </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.14" radius="0.025"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.6"/>
+      <inertia
+        ixx="0.00107375" ixy="0.0" ixz="0.0"
+        iyy="0.00107375" iyz="0.0"
+        izz="0.0001875"/>
+    </inertial>
   </link>
 
   <joint name="right_back_leg_to_calf" type="revolute">
@@ -281,17 +491,15 @@
     <limit lower="-1.2" upper="0" effort="10" velocity="0.5"/>
     <parent link="right_back_leg"/>
     <child link="back_calf_right"/>
-    <origin xyz=" -0.14 0 -0.15 " rpy="0 -0.7854 0"/>
-  </joint>  
+    <origin xyz="-0.14 0 -0.15" rpy="0 -0.7854 0"/>
+  </joint>
 
-
-
-
-    <!-- back left leg -->
-
+  <!-- ===========================
+       LEFT BACK THIGH + CALF
+       =========================== -->
   <link name="left_back_leg">
     <visual>
-      <origin xyz="0 0 0" rpy=" 0 0.7854 0"/>
+      <origin xyz="0 0 0" rpy="0 0.7854 0"/>
       <geometry>
         <mesh filename="package://uniteedog_description/meshes/thigh.dae" scale="1.0 1.0 1.0"/>
       </geometry>
@@ -299,6 +507,22 @@
         <color rgba="0.59 0.29 0.0 1.0"/>
       </material>
     </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.12" radius="0.03"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.9"/>
+      <inertia
+        ixx="0.0012825" ixy="0.0" ixz="0.0"
+        iyy="0.0012825" iyz="0.0"
+        izz="0.000405"/>
+    </inertial>
   </link>
 
   <joint name="hip_to_left_back_leg" type="revolute">
@@ -306,15 +530,12 @@
     <limit lower="-0.52" upper="1.57" effort="10" velocity="0.5"/>
     <parent link="back_hip_left"/>
     <child link="left_back_leg"/>
-    <origin xyz="0 0.08 0 " rpy="0 0 0"/>
+    <origin xyz="0 0.08 0" rpy="0 0 0"/>
   </joint>
 
-  <!-- calf back left -->
-
   <link name="back_calf_left">
-
     <visual>
-      <origin xyz="0 0 0" rpy=" 0 0 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
         <mesh filename="package://uniteedog_description/meshes/calf.dae" scale="1.0 1.0 1.0"/>
       </geometry>
@@ -322,16 +543,49 @@
         <color rgba="0.59 0.29 0.0 1.0"/>
       </material>
     </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.14" radius="0.025"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.6"/>
+      <inertia
+        ixx="0.00107375" ixy="0.0" ixz="0.0"
+        iyy="0.00107375" iyz="0.0"
+        izz="0.0001875"/>
+    </inertial>
   </link>
 
-  <joint name ="left_back_leg_to_calf" type="revolute">
+  <joint name="left_back_leg_to_calf" type="revolute">
     <axis xyz="0 1 0"/>
     <limit lower="-1.2" upper="0" effort="10" velocity="0.5"/>
     <parent link="left_back_leg"/>
     <child link="back_calf_left"/>
-    <origin xyz=" -0.14 0 -0.15 " rpy="0 -0.7854 0"/>
-  </joint>  
+    <origin xyz="-0.14 0 -0.15" rpy="0 -0.7854 0"/>
+  </joint>
 
 
-  
+  <gazebo>
+  <plugin name="ros2_control" filename="libignition_ros2_control.so">
+    <ros2_control>
+      <robot_namespace>/</robot_namespace>
+      <robot_sim_type>gazebo_ros2_control/DefaultRobotHWSim</robot_sim_type>
+    </ros2_control>
+  </plugin>
+
+  <plugin name="camera" filename="libignition_ros_camera_sensor.so">
+    <ros>
+      <namespace>/camera</namespace>
+    </ros>
+    <sensorName>unitree_camera</sensorName>
+    <topic>/camera/image_raw</topic>
+    <updateRate>30</updateRate>
+  </plugin>
+</gazebo>
+
 </robot>
