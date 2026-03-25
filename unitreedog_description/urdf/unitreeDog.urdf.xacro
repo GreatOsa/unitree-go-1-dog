@@ -191,62 +191,9 @@
   <!-- ===========================
        CAMERA (small mass)
        =========================== -->
-  <link name="camera">
-    <visual>
-      <origin xyz="0 -0.01 0.01" rpy="0.7854 0 0"/>
-      <geometry>
-        <mesh filename="package://unitreedog_description/meshes/depthCamera.dae" scale="1.0 1.0 1.0"/>
-      </geometry>
-      <material name="base_color">
-        <color rgba="0.9 0.29 0.0 1"/>
-      </material>
-    </visual>
+    <xacro:include filename="$(find unitreedog_description)/urdf/camera.urdf.xacro"/>
+    <xacro:camera parent="base_link"/>
 
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry>
-        <box size="0.08 0.03 0.03"/>
-      </geometry>
-    </collision>
-
-    <inertial>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <mass value="0.15"/>
-      <!-- approx sphere inertia (r~0.03) -->
-      <inertia
-        ixx="0.000054" ixy="0.0" ixz="0.0"
-        iyy="0.000054" iyz="0.0"
-        izz="0.000054"/>
-    </inertial>
-    <sensor name="unitree_camera" type="camera">
-    <pose>0 0 0 0 0 0</pose>
-    <visualize>true</visualize>
-    <update_rate>30</update_rate>
-    <camera>
-      <horizontal_fov>1.089</horizontal_fov>
-      <image>
-        <width>640</width>
-        <height>480</height>
-        <format>R8G8B8</format>
-      </image>
-      <clip>
-        <near>0.05</near>
-        <far>8.0</far>
-      </clip>
-    </camera>
-    <topic>camera/image_raw</topic>
-    <plugin
-      filename="ignition-gazebo-camera-plugin"
-      name="ignition::gazebo::systems::Camera">
-    </plugin>
-  </sensor>
-  </link>
-
-  <joint name="base_to_camera" type="fixed">
-    <parent link="base_link"/>
-    <child link="camera"/>
-    <origin xyz="0.3 0 0" rpy="0 0 0"/>
-  </joint>
 
   <!-- ===========================
        ULTRASOUND SENSOR
@@ -280,7 +227,7 @@
   </link>
 
   <joint name="base_to_ultraSound" type="fixed">
-    <parent link="camera"/>
+    <parent link="camera_link"/>
     <child link="ultraSound"/>
     <origin xyz="0 0 0" rpy="0 0 0"/>
   </joint>
@@ -299,13 +246,12 @@
       </material>
     </visual>
 
-    <collision>
+    <!-- <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <!-- cylinder: length ~0.12 m, radius 0.03 m (aligned along local X) -->
         <cylinder length="0.12" radius="0.03"/>
       </geometry>
-    </collision>
+    </collision> -->
 
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -338,13 +284,12 @@
       </material>
     </visual>
 
-    <collision>
+    <!-- <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <!-- cylinder: length 0.14 m, radius 0.025 m -->
         <cylinder length="0.14" radius="0.025"/>
       </geometry>
-    </collision>
+    </collision> -->
 
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -380,12 +325,12 @@
       </material>
     </visual>
 
-    <collision>
+    <!-- <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
         <cylinder length="0.12" radius="0.03"/>
       </geometry>
-    </collision>
+    </collision> -->
 
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -416,12 +361,12 @@
       </material>
     </visual>
 
-    <collision>
+    <!-- <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
         <cylinder length="0.14" radius="0.025"/>
       </geometry>
-    </collision>
+    </collision> -->
 
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -455,12 +400,12 @@
       </material>
     </visual>
 
-    <collision>
+    <!-- <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
         <cylinder length="0.12" radius="0.03"/>
       </geometry>
-    </collision>
+    </collision> -->
 
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -491,12 +436,12 @@
       </material>
     </visual>
 
-    <collision>
+    <!-- <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
         <cylinder length="0.14" radius="0.025"/>
       </geometry>
-    </collision>
+    </collision> -->
 
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -530,12 +475,12 @@
       </material>
     </visual>
 
-    <collision>
+    <!-- <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
         <cylinder length="0.12" radius="0.03"/>
       </geometry>
-    </collision>
+    </collision> -->
 
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -566,12 +511,12 @@
       </material>
     </visual>
 
-    <collision>
+    <!-- <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
         <cylinder length="0.14" radius="0.025"/>
       </geometry>
-    </collision>
+    </collision> -->
 
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -592,36 +537,6 @@
   </joint>
 
 
-  <!-- <gazebo>
-  <plugin name="ros2_control" filename="libignition_ros2_control.so">
-    <ros2_control>
-      <robot_namespace>/</robot_namespace>
-      <robot_sim_type>gazebo_ros2_control/DefaultRobotHWSim</robot_sim_type>
-    </ros2_control>
-  </plugin>
 
-  <plugin name="camera" filename="libignition_ros_camera_sensor.so">
-    <ros>
-      <namespace>/camera</namespace>
-    </ros>
-    <sensorName>unitree_camera</sensorName>
-    <topic>/camera/image_raw</topic>
-    <updateRate>30</updateRate>
-  </plugin>
-</gazebo> -->
-<gazebo>
-  <plugin
-    filename="ign_ros2_control-system"
-    name="ign_ros2_control::IgnitionRos2ControlSystem">
-    <ros>
-      <namespace>/</namespace>
-    </ros>
-    </plugin>
 
-  <plugin
-    filename="ignition-gazebo-sensors-system"
-    name="ignition::gazebo::systems::Sensors">
-    <render_engine>ogre2</render_engine>
-  </plugin>
-</gazebo>
 </robot>

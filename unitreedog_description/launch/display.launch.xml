@@ -1,37 +1,25 @@
 <launch>
-    <let name="urdf_path" value="$(find-pkg-share unitreedog_description)/urdf/unitreeDog.urdf.xacro"/>
-    <let name="rviz_config_path" value="$(find-pkg-share unitreedog_description)/rviz/urdf_config.rviz" />
-    <node pkg="robot_state_publisher" exec="robot_state_publisher">
-        <param name="robot_description"
-            value="$(command 'xacro $(var urdf_path)')" />
-    </node>
-
-    <node pkg="joint_state_publisher_gui"
-          exec="joint_state_publisher_gui" />
-    <node pkg="rviz2" exec="rviz2" args="-d $(var rviz_config_path)" />   
-</launch>
-<!-- <launch>
-    <let name="pkg_share" value="$(find-pkg-share uniteedog_description)"/>
-    <let name="urdf_path" value="$(var pkg_share)/urdf/unitreeDog.urdf.xacro"/>
-    <let name="world_file" value="shapes.sdf"/>
+    <arg name="urdf_file" default="$(find-pkg-share unitreedog_description)/urdf/unitreeDog.urdf.xacro"/>
 
     <node pkg="robot_state_publisher" exec="robot_state_publisher" name="robot_state_publisher">
-        <param name="robot_description" value="$(command 'xacro $(var urdf_path)')"/>
+        <param name="robot_description" value="$(command xacro $(arg urdf_file))"/>
         <param name="use_sim_time" value="true"/>
     </node>
 
     <include file="$(find-pkg-share ros_gz_sim)/launch/gz_sim.launch.py">
-        <arg name="gz_args" value="-r $(var world_file)"/>
+        <arg name="gz_args" value="-r $(find-pkg-share unitreedog_description)/worlds/shapes.sdf"/>
     </include>
 
     <node pkg="ros_gz_sim" exec="create" name="spawn_robot" output="screen"
-          args="-name UnitreeDog -topic robot_description -x 0 -y 0 -z 0.6" />
+          args="-name UnitreeDog -topic robot_description -x 0 -y 0 -z 0.6"/>
 
     <node pkg="ros_gz_bridge" exec="parameter_bridge" name="ros_gz_bridge" output="screen"
-          args="/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock
-                /model/UnitreeDog/joint_state@sensor_msgs/msg/JointState[gz.msgs.Model
-                /model/UnitreeDog/tf@tf2_msgs/msg/TFMessage[gz.msgs.Pose_V" />
+          args="/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock]
+                /model/UnitreeDog/joint_state@sensor_msgs/msg/JointState[gz.msgs.Model]
+                /model/UnitreeDog/tf@tf2_msgs/msg/TFMessage[gz.msgs.Pose_V]"/>
 
-    <node pkg="rviz2" exec="rviz2" name="rviz2" args="-d $(var pkg_share)/rviz/urdf_config.rviz">
+    <node pkg="rviz2" exec="rviz2" name="rviz2" output="screen"
+          args="-d $(find-pkg-share unitreedog_description)/rviz/urdf_config.rviz">
         <param name="use_sim_time" value="true"/>
-</launch> -->
+    </node>
+</launch>
