@@ -4,6 +4,7 @@ from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
+from launch.actions import TimerAction
 import xacro
 
 
@@ -23,7 +24,7 @@ def generate_launch_description():
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(
             get_package_share_directory('ros_gz_sim'), 'launch', 'gz_sim.launch.py')]),
-        launch_arguments={'gz_args': '-r empty.sdf'}.items(),
+        launch_arguments={'gz_args': '-r empty.sdf --verbose 4'}.items(),
     )
 
     # 2. Robot State Publisher
@@ -44,28 +45,28 @@ def generate_launch_description():
             '-topic', 'robot_description',
             '-x', '0',
             '-y', '0',
-            '-z', '0.5'
+            '-z', '1.5'
         ],
         output='screen',
     )
 
     # 4. Bridge (ROS 2 <-> Gazebo)
     bridge = Node(
-        package='ros_gz_bridge',
+        package='ros_ign_bridge',
         executable='parameter_bridge',
         arguments=[
-            '/model/UnitreeDog/tf@tf2_msgs/msg/TFMessage[gz.msgs.Pose_V',
+            '/model/UnitreeDog/tf@tf2_msgs/msg/TFMessage[gz.msgs.Pose_V]',
             '/model/UnitreeDog/joint_state@sensor_msgs/msg/JointState[gz.msgs.Model',
-            '/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock]'
+            # '/world/empty/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock]'
         ],
         output='screen'
     )
 
-    joint_state_publisher = Node(
-        package='joint_state_publisher_gui',
-        executable='joint_state_publisher_gui',
-        name='joint_state_publisher_gui'
-    )
+    # joint_state_publisher = Node(
+    #     package='joint_state_publisher_gui',
+    #     executable='joint_state_publisher_gui',
+    #     name='joint_state_publisher_gui'
+    # )
 
     # 5. RViz Node
     rviz_node = Node(
@@ -77,11 +78,32 @@ def generate_launch_description():
         parameters=[{'use_sim_time': True}]
     )
 
+
+
     return LaunchDescription([
         gazebo,
         robot_state_publisher,
         spawn_robot,
-        joint_state_publisher,
+       
         bridge,
-        rviz_node
+        rviz_node,
+        
+        TimerAction(
+            period=5.0,
+            actions=[
+                Node(
+                    package="controller_manager",
+                    executable="spawner",
+                    arguments=["joint_state_broadcaster"],
+                ),
+
+                Node(
+                    package="controller_manager",
+                    executable="spawner",
+                    arguments=["effort_controller"],
+                )
+            ]
+        )
+  
     ])
+

@@ -54,7 +54,7 @@ At its current stage, this project focuses solely on establishing a Gazebo-based
 
 - A URDF model defining the Unitree Go1’s links, joints, and kinematic structure
 
-- A Gazebo world setup for running and visualizing simulations
+- A Gazebo world setup for running and visualizing simulations and RViz setup
 
 <!-- - Basic world elements such as ground plane, lighting, and physics configuration -->
 

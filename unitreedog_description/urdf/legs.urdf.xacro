@@ -1,0 +1,239 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="legs" params="front_hip_right front_hip_left back_hip_right back_hip_left">
+
+    <!-- RIGHT FRONT THIGH -->
+    <link name="right_front_leg">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0.7854 0"/>
+        <geometry>
+          <mesh filename="package://unitreedog_description/meshes/thigh_mirror.dae"/>
+        </geometry>
+        <material name="brown"><color rgba="0.59 0.29 0.0 1.0"/></material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 -0.06"/>
+        <geometry><cylinder length="0.12" radius="0.03"/></geometry>
+      </collision>
+      <inertial>
+        <mass value="0.9"/>
+        <inertia ixx="0.0012825" iyy="0.0012825" izz="0.000405"
+                 ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+    </link>
+
+    <joint name="base_to_right_front_leg" type="revolute">
+      <parent link="${front_hip_right}"/>
+      <child link="right_front_leg"/>
+      <axis xyz="0 1 0"/>
+      <origin xyz="0 -0.08 0"/>
+      <limit lower="-0.52" upper="1.57" effort="20" velocity="1.0"/>
+      <dynamics damping="0.5" friction="0.1"/>
+    </joint>
+
+    <!-- RIGHT FRONT CALF -->
+    <link name="front_calf_right">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://unitreedog_description/meshes/calf.dae"/>
+        </geometry>
+        <material name="brown"><color rgba="0.59 0.29 0.0 1.0"/></material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 -0.07"/>
+        <geometry><cylinder length="0.14" radius="0.025"/></geometry>
+      </collision>
+      <inertial>
+        <mass value="0.6"/>
+        <inertia ixx="0.00107" iyy="0.00107" izz="0.000187"
+                 ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+    </link>
+
+    <joint name="right_front_leg_to_calf" type="revolute">
+      <parent link="right_front_leg"/>
+      <child link="front_calf_right"/>
+      <axis xyz="0 1 0"/>
+      <origin xyz="-0.14 0 -0.15" rpy="0 -0.7854 0"/>
+      <limit lower="-1.2" upper="0" effort="20" velocity="1.0"/>
+      <dynamics damping="0.5" friction="0.1"/>
+    </joint>
+
+    <!-- LEFT FRONT THIGH -->
+    <link name="left_front_leg">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0.7854 0"/>
+        <geometry>
+          <mesh filename="package://unitreedog_description/meshes/thigh.dae"/>
+        </geometry>
+        <material name="brown"><color rgba="0.59 0.29 0.0 1.0"/></material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 -0.06"/>
+        <geometry><cylinder length="0.12" radius="0.03"/></geometry>
+      </collision>
+      <inertial>
+        <mass value="0.9"/>
+        <inertia ixx="0.0012825" iyy="0.0012825" izz="0.000405"
+                 ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+    </link>
+
+    <joint name="base_to_left_front_leg" type="revolute">
+      <parent link="${front_hip_left}"/>
+      <child link="left_front_leg"/>
+      <axis xyz="0 1 0"/>
+      <origin xyz="0 0.08 0"/>
+      <limit lower="-0.52" upper="1.57" effort="20" velocity="1.0"/>
+      <dynamics damping="0.5" friction="0.1"/>
+    </joint>
+
+    <!-- LEFT FRONT CALF -->
+    <link name="front_calf_left">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://unitreedog_description/meshes/calf.dae"/>
+        </geometry>
+        <material name="brown"><color rgba="0.59 0.29 0.0 1.0"/></material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 -0.07"/>
+        <geometry><cylinder length="0.14" radius="0.025"/></geometry>
+      </collision>
+      <inertial>
+        <mass value="0.6"/>
+        <inertia ixx="0.00107" iyy="0.00107" izz="0.000187"
+                 ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+    </link>
+
+    <joint name="left_front_leg_to_calf" type="revolute">
+      <parent link="left_front_leg"/>
+      <child link="front_calf_left"/>
+      <axis xyz="0 1 0"/>
+      <origin xyz="-0.14 0 -0.15" rpy="0 -0.7854 0"/>
+      <limit lower="-1.2" upper="0" effort="20" velocity="1.0"/>
+      <dynamics damping="0.5" friction="0.1"/>
+    </joint>
+
+    <!-- RIGHT BACK THIGH -->
+    <link name="right_back_leg">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0.7854 0"/>
+        <geometry>
+          <mesh filename="package://unitreedog_description/meshes/thigh_mirror.dae"/>
+        </geometry>
+        <material name="brown"><color rgba="0.59 0.29 0.0 1.0"/></material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 -0.06"/>
+        <geometry><cylinder length="0.12" radius="0.03"/></geometry>
+      </collision>
+      <inertial>
+        <mass value="0.9"/>
+        <inertia ixx="0.0012825" iyy="0.0012825" izz="0.000405"
+                 ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+    </link>
+
+    <joint name="hip_to_right_back_leg" type="revolute">
+      <parent link="${back_hip_right}"/>
+      <child link="right_back_leg"/>
+      <axis xyz="0 1 0"/>
+      <origin xyz="0 -0.08 0"/>
+      <limit lower="-0.52" upper="1.57" effort="20" velocity="1.0"/>
+      <dynamics damping="0.5" friction="0.1"/>
+    </joint>
+
+    <!-- RIGHT BACK CALF -->
+    <link name="back_calf_right">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://unitreedog_description/meshes/calf.dae"/>
+        </geometry>
+        <material name="brown"><color rgba="0.59 0.29 0.0 1.0"/></material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 -0.07"/>
+        <geometry><cylinder length="0.14" radius="0.025"/></geometry>
+      </collision>
+      <inertial>
+        <mass value="0.6"/>
+        <inertia ixx="0.00107" iyy="0.00107" izz="0.000187"
+                 ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+    </link>
+
+    <joint name="right_back_leg_to_calf" type="revolute">
+      <parent link="right_back_leg"/>
+      <child link="back_calf_right"/>
+      <axis xyz="0 1 0"/>
+      <origin xyz="-0.14 0 -0.15" rpy="0 -0.7854 0"/>
+      <limit lower="-1.2" upper="0" effort="20" velocity="1.0"/>
+      <dynamics damping="0.5" friction="0.1"/>
+    </joint>
+
+    <!-- LEFT BACK THIGH -->
+    <link name="left_back_leg">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0.7854 0"/>
+        <geometry>
+          <mesh filename="package://unitreedog_description/meshes/thigh.dae"/>
+        </geometry>
+        <material name="brown"><color rgba="0.59 0.29 0.0 1.0"/></material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 -0.06"/>
+        <geometry><cylinder length="0.12" radius="0.03"/></geometry>
+      </collision>
+      <inertial>
+        <mass value="0.9"/>
+        <inertia ixx="0.0012825" iyy="0.0012825" izz="0.000405"
+                 ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+    </link>
+
+    <joint name="hip_to_left_back_leg" type="revolute">
+      <parent link="${back_hip_left}"/>
+      <child link="left_back_leg"/>
+      <axis xyz="0 1 0"/>
+      <origin xyz="0 0.08 0"/>
+      <limit lower="-0.52" upper="1.57" effort="20" velocity="1.0"/>
+      <dynamics damping="0.5" friction="0.1"/>
+    </joint>
+
+    <!-- LEFT BACK CALF -->
+    <link name="back_calf_left">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://unitreedog_description/meshes/calf.dae"/>
+        </geometry>
+        <material name="brown"><color rgba="0.59 0.29 0.0 1.0"/></material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 -0.07"/>
+        <geometry><cylinder length="0.14" radius="0.025"/></geometry>
+      </collision>
+      <inertial>
+        <mass value="0.6"/>
+        <inertia ixx="0.00107" iyy="0.00107" izz="0.000187"
+                 ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+    </link>
+
+    <joint name="left_back_leg_to_calf" type="revolute">
+      <parent link="left_back_leg"/>
+      <child link="back_calf_left"/>
+      <axis xyz="0 1 0"/>
+      <origin xyz="-0.14 0 -0.15" rpy="0 -0.7854 0"/>
+      <limit lower="-1.2" upper="0" effort="20" velocity="1.0"/>
+      <dynamics damping="0.5" friction="0.1"/>
+    </joint>
+
+  </xacro:macro>
+</robot>
