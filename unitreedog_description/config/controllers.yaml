@@ -5,10 +5,10 @@ controller_manager:
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
 
-    effort_controller:
-      type: effort_controllers/JointGroupEffortController
-
-effort_controller:
+    joint_trajectory_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+ 
+joint_trajectory_controller:
   ros__parameters:
     joints:
       - base_to_back_hip_right
@@ -23,3 +23,27 @@ effort_controller:
       - left_front_leg_to_calf
       - right_back_leg_to_calf
       - left_back_leg_to_calf
+
+
+    command_interfaces:
+      - position
+
+    state_interfaces:
+      - position
+      - velocity
+
+    gains:
+      base_to_back_hip_right: {p: 100.0, d: 2.0}
+      base_to_back_hip_left: {p: 100.0, d: 2.0}
+      base_to_front_hip_right: {p: 100.0, d: 2.0}
+      base_to_front_hip_left: {p: 100.0, d: 2.0}
+
+      base_to_right_front_leg: {p: 150.0, d: 3.0}
+      base_to_left_front_leg: {p: 150.0, d: 3.0}
+      hip_to_right_back_leg: {p: 150.0, d: 3.0}
+      hip_to_left_back_leg: {p: 150.0, d: 3.0}
+
+      right_front_leg_to_calf: {p: 200.0, d: 5.0}
+      left_front_leg_to_calf: {p: 200.0, d: 5.0}
+      right_back_leg_to_calf: {p: 200.0, d: 5.0}
+      left_back_leg_to_calf: {p: 200.0, d: 5.0}

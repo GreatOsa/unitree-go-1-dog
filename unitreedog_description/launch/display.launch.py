@@ -1,5 +1,6 @@
 import os
 from ament_index_python.packages import get_package_share_directory
+# import joint_state_publisher
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
@@ -52,12 +53,12 @@ def generate_launch_description():
 
     # 4. Bridge (ROS 2 <-> Gazebo)
     bridge = Node(
-        package='ros_ign_bridge',
+        package='ros_gz_bridge',
         executable='parameter_bridge',
         arguments=[
-            '/model/UnitreeDog/tf@tf2_msgs/msg/TFMessage[gz.msgs.Pose_V]',
-            '/model/UnitreeDog/joint_state@sensor_msgs/msg/JointState[gz.msgs.Model',
-            # '/world/empty/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock]'
+            # '/model/UnitreeDog/tf@tf2_msgs/msg/TFMessage[gz.msgs.Pose_V]',
+            '/model/UnitreeDog/joint_state@sensor_msgs/msg/JointState[gz.msgs.Model]',
+            '/world/empty/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock]'
         ],
         output='screen'
     )
@@ -84,7 +85,7 @@ def generate_launch_description():
         gazebo,
         robot_state_publisher,
         spawn_robot,
-       
+        # joint_state_publisher,
         bridge,
         rviz_node,
         
@@ -96,11 +97,12 @@ def generate_launch_description():
                     executable="spawner",
                     arguments=["joint_state_broadcaster"],
                 ),
+               
 
                 Node(
                     package="controller_manager",
                     executable="spawner",
-                    arguments=["effort_controller"],
+                    arguments=["joint_trajectory_controller"],
                 )
             ]
         )

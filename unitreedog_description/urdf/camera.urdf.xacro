@@ -33,7 +33,37 @@
       <!-- <parent link="base_link"/> -->
       <parent link="${parent}"/>
       <child link="camera_link"/>
-      <origin xyz="0.3 0 0" rpy="0 0 0"/>
+      <origin xyz="0.288 0 0.047" rpy="0 0 0"/>
+      <!-- <origin xyz="0.3 0 0" rpy="0 0 0"/> -->
+    </joint>
+
+    <link name="ultraSound">
+      <visual>
+        <origin xyz="0 0 0.02" rpy="-0.7854 0 0"/>
+        <geometry>
+          <mesh filename="package://unitreedog_description/meshes/ultraSound.dae" scale="1.0 1.0 1.0"/>
+        </geometry>
+        <material name="base_color">
+          <color rgba="0.9 0.29 0.0 1"/>
+        </material>
+      </visual>
+
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.15"/>
+        <!-- approx sphere inertia (r~0.03) -->
+        <inertia
+          ixx="0.000054" ixy="0.0" ixz="0.0"
+          iyy="0.000054" iyz="0.0"
+          izz="0.000054"/>
+      </inertial>
+    </link>
+
+    <joint name="base_to_ultraSound" type="fixed">
+      <parent link="camera_link"/>
+      <child link="ultraSound"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <!-- <limit lower="0.0" upper="0.3" effort="10" velocity="0.5"/> -->
     </joint>
 
 
@@ -52,7 +82,7 @@
             <far>100</far>
           </clip>
         </camera>
-        <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <plugin name="camera" filename="libgz-sim-camera-system.so">
           <ros>
             <namespace>/camera</namespace>
             <remapping>image_raw:=image_raw</remapping>
